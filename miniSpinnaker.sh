@@ -1,5 +1,5 @@
 
-minikube start --cpus 4 --cpus 4 --memory 8192 --mount-string="$HOME/.minikube:$HOME/.minikube"
+minikube start --cpus 4 --cpus 4 --memory 8192
 
 minikube dashboard &
 
@@ -10,6 +10,10 @@ kubectl rollout status deployment/tiller-deploy --namespace=kube-system -w
 helm install --name mino-spinnaker stable/minio
 
 kubectl rollout status deployment/mino-spinnaker-minio --namespace=default -w
+
+# have to embed the certificates into the contex so they are sent into the spinnaker containers
+kubectl config set-credentials minikube --client-certificate=$HOME/.minikube/client.crt --client-key=$HOME/.minikube/client.key --embed-certs=true
+kubectl config set-cluster minikube --certificate-authority=$HOME/.minikube/ca.crt --embed-certs=true
 
 hal config provider kubernetes enable
 
