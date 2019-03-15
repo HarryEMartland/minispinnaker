@@ -1,6 +1,6 @@
 # MiniSpinnaker
 
-A script for spinning up spinnaker in MiniKube allong with examples to play with.
+A script for spinning up spinnaker in MiniKube along with examples to play with.
 
 ## Dependencies
 
