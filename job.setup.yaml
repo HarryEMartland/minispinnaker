@@ -10,6 +10,7 @@ spec:
           image: appropriate/curl
           command: ["/bin/sh","-c"]
           args: ["\
+          curl https://raw.githubusercontent.com/HarryEMartland/minispinnaker/master/application.sampleapp.json | curl -d@- -X POST -H 'Content-Type: application/json' -H 'Accept: */*'  http://spin-gate.spinnaker.svc:8084/applications; \
           curl https://raw.githubusercontent.com/HarryEMartland/minispinnaker/master/pipeline.canarydeploy.json | curl -d@- -X POST -H 'Content-Type: application/json' -H 'Accept: */*'  http://spin-gate.spinnaker.svc:8084/pipelines; \
           curl https://raw.githubusercontent.com/HarryEMartland/minispinnaker/master/pipeline.simpleapp.json | curl -d@- -X POST -H 'Content-Type: application/json' -H 'Accept: */*'  http://spin-gate.spinnaker.svc:8084/pipelines; \
           curl https://raw.githubusercontent.com/HarryEMartland/minispinnaker/master/canaryconfig.kayentatest.json | curl -d@- -X POST -H 'Content-Type: application/json' -H 'Accept: */*'  http://spin-gate.spinnaker.svc:8084/v2/canaryConfig\
