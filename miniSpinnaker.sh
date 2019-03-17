@@ -48,13 +48,22 @@ hal deploy apply;
 git clone --depth 1 git@github.com:coreos/prometheus-operator.git
 kubectl apply -f prometheus-operator/contrib/kube-prometheus/manifests
 
-kubectl rollout status deployment/spin-front50 --namespace=spinnaker -w
-kubectl rollout status deployment/spin-echo --namespace=spinnaker -w
-kubectl rollout status deployment/spin-gate --namespace=spinnaker -w
-kubectl rollout status deployment/spin-orca --namespace=spinnaker -w
-kubectl rollout status deployment/spin-clouddrive --namespace=spinnaker -w
-kubectl rollout status deployment/spin-deck --namespace=spinnaker -w
 kubectl rollout status deployment/spin-redis --namespace=spinnaker -w
+kubectl rollout status deployment/spin-echo --namespace=spinnaker -w
+kubectl rollout status deployment/spin-deck --namespace=spinnaker -w
+kubectl rollout status deployment/spin-gate --namespace=spinnaker -w
+kubectl rollout status deployment/spin-rosco --namespace=spinnaker -w
+kubectl rollout status deployment/spin-orca --namespace=spinnaker -w
+kubectl rollout status deployment/spin-kayenta --namespace=spinnaker -w
+kubectl rollout status deployment/spin-clouddrive --namespace=spinnaker -w
+kubectl rollout status deployment/spin-front50 --namespace=spinnaker -w
+
+kubectl rollout status deployment/prometheus-operator --namespace=monitoring -w
+kubectl rollout status deployment/grafana --namespace=monitoring -w
+kubectl rollout status deployment/prometheus-adapter --namespace=monitoring -w
+kubectl rollout status deployment/kube-state-metrics --namespace=monitoring -w
+
+kubectl apply -f https://raw.githubusercontent.com/HarryEMartland/minispinnaker/master/job.setup.yaml
 
 hal deploy connect &
 
