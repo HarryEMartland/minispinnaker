@@ -5,7 +5,7 @@
             "application": {
                 "cloudProviders": "kubernetes",
                 "instancePort": 80,
-                "name": "simpleapp",
+                "name": "sampleapp",
                 "email": "tes@tet.com",
                 "dataSources": {
                     "enabled": [
@@ -17,6 +17,6 @@
             "user": "[anonymous]"
         }
     ],
-    "application": "simpleapp",
+    "application": "sampleapp",
     "description": "Create Application: test"
 }
