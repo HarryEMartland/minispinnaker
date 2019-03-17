@@ -1,0 +1,46 @@
+{
+    "applications": [
+        "sampleapp"
+    ],
+    "classifier": {
+        "groupWeights": {
+            "Group 1": 100
+        },
+        "scoreThresholds": {
+            "marginal": 75,
+            "pass": 95
+        }
+    },
+    "configVersion": "1",
+    "createdTimestamp": 1552831842176,
+    "createdTimestampIso": "2019-03-17T14:10:42.176Z",
+    "description": "",
+    "judge": {
+        "judgeConfigurations": {},
+        "name": "NetflixACAJudge-v1.0"
+    },
+    "metrics": [
+        {
+            "analysisConfigurations": {
+                "canary": {
+                    "direction": "increase"
+                }
+            },
+            "groups": [
+                "Group 1"
+            ],
+            "name": "error-rate",
+            "query": {
+                "customInlineTemplate": "PromQL:sum(delta(requests{http_code=\"500\", pod=~\"${scope}.*\"}[1m])) by (namespace)/sum(delta(requests{pod=~\"${scope}.*\"}[1m])) by (namespace)",
+                "resourceType": "aws_ec2_instance",
+                "serviceType": "prometheus",
+                "type": "prometheus"
+            },
+            "scopeName": "default"
+        }
+    ],
+    "name": "kayenta-test",
+    "templates": {},
+    "updatedTimestamp": 1552841240352,
+    "updatedTimestampIso": "2019-03-17T16:47:20.352Z"
+}
