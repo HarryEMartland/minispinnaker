@@ -1,0 +1,10 @@
+{
+    "name": "sampleapp",
+    "email": "test@test.com",
+    "dataSources": {
+        "enabled": [
+            "canaryConfigs"
+        ],
+        "disabled": []
+    }
+}
