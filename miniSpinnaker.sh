@@ -19,13 +19,13 @@ hal config provider kubernetes enable
 
 CONTEXT=$(kubectl config current-context)
 
-hal config provider kubernetes account add my-k8s-v2-account \
+hal config provider kubernetes account add minikube \
     --provider-version v2 \
     --context $CONTEXT
 
 hal config features edit --artifacts true
 
-hal config deploy edit --type distributed --account-name my-k8s-v2-account
+hal config deploy edit --type distributed --account-name minikube
 
 echo wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY | hal config storage s3 edit --endpoint http://mino-spinnaker-minio.default.svc.cluster.local:9000 \
     --access-key-id AKIAIOSFODNN7EXAMPLE \
@@ -33,7 +33,19 @@ echo wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY | hal config storage s3 edit --end
 
 hal config storage edit --type s3
 
+hal config canary enable
+hal config canary prometheus enable
+hal config canary prometheus account add cluster-prom --base-url http://prometheus-k8s.monitoring.svc:9090
+hal config canary edit --default-metrics-store prometheus
+
+hal config canary aws enable
+echo wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY | hal config canary aws account add aws-mino --endpoint http://mino-spinnaker-minio.default.svc.cluster.local:9000  --access-key-id AKIAIOSFODNN7EXAMPLE --bucket canary  --secret-access-key
+hal config canary aws edit --s3-enabled true
+
 hal deploy apply;
+
+git clone --depth 1 git@github.com:coreos/prometheus-operator.git
+kubectl apply -f prometheus-operator/contrib/kube-prometheus/manifests
 
 kubectl rollout status deployment/spin-front50 --namespace=spinnaker -w
 kubectl rollout status deployment/spin-echo --namespace=spinnaker -w
@@ -47,3 +59,4 @@ hal deploy connect &
 
 open http://localhost:9000
 
+kubectl apply -f https://raw.githubusercontent.com/HarryEMartland/minispinnaker/master/job.setup.yaml
