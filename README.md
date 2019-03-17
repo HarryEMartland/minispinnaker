@@ -2,7 +2,7 @@
 
 A script for spinning up spinnaker in MiniKube along with examples to play with.
 
-run with `curl -O https://bit.ly/minispinnaker | bash`
+run with `curl -L https://bit.ly/minispinnaker | bash`
 
 ## Dependencies
 
